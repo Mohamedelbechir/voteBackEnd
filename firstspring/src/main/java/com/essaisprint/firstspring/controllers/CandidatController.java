@@ -21,7 +21,7 @@ public class CandidatController {
     private CandidatDao candidatDao;
     
     @PostMapping(value="/candidats")
-    public ResponseEntity<Candidat> ajouterElecEntity(@RequestBody Candidat Candidat) {
+    public ResponseEntity<Candidat> ajouterCandidat(@RequestBody Candidat Candidat) {
 
         Candidat candidatAdded = candidatDao.save(Candidat);
       

@@ -26,10 +26,9 @@ public class ElectionController {
 
     @Autowired
     private ElectionDao electionDao;
-
     //@CrossOrigin(origins = "http://localhost:4200")
     @PostMapping(value="/elections")
-    public ResponseEntity<Election> ajouterElecEntity(@RequestBody Election Election) {
+    public ResponseEntity<Election> ajouterElection(@RequestBody Election Election) {
         Election electionAdded = electionDao.save(Election);
       
         
