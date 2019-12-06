@@ -1,7 +1,8 @@
 package com.essaisprint.firstspring.controllers;
 
-import com.essaisprint.firstspring.daos.CandidatDao;
-import com.essaisprint.firstspring.models.Candidat;
+
+import com.essaisprint.firstspring.daos.UtilisateurDao;
+import com.essaisprint.firstspring.models.Utilisateur;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,23 +19,23 @@ import org.springframework.web.bind.annotation.RestController;
 public class CandidatController {
 
     @Autowired
-    private CandidatDao candidatDao;
+    private UtilisateurDao utilisateurDao;
     
-    @PostMapping(value="/candidats")
-    public ResponseEntity<Candidat> ajouterCandidat(@RequestBody Candidat candidat) {
-        System.out.println("njcdsnj");
-        Candidat candidatAdded = candidatDao.save(candidat);      
+    @PostMapping(value="/add_new_user")
+    public ResponseEntity<Utilisateur> ajouter(@RequestBody Utilisateur utilisateur) {
         
-        if (candidatAdded == null)
+        Utilisateur utilisateurAdded = utilisateurDao.save(utilisateur);      
+        
+        if (utilisateurAdded == null)
              return ResponseEntity.noContent().build();
              
-          return new ResponseEntity<Candidat>(candidatAdded, HttpStatus.CREATED);
+          return new ResponseEntity<Utilisateur>(utilisateurAdded, HttpStatus.CREATED);
          
     }
-    @GetMapping(value="/candidats")
-    public ResponseEntity< Iterable<Candidat>> getCandidats() {
-        Iterable<Candidat> candidats = candidatDao.findAll();
+    @GetMapping(value="/utilisateurs")
+    public ResponseEntity< Iterable<Utilisateur>> getUtilisateurs() {
+        Iterable<Utilisateur> utilisateurs = utilisateurDao.findAll();
     
-        return new ResponseEntity< Iterable<Candidat>>(candidats, HttpStatus.OK);
+        return new ResponseEntity< Iterable<Utilisateur>>(utilisateurs, HttpStatus.OK);
     }
 }
