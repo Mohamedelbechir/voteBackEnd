@@ -12,11 +12,14 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.validation.constraints.Email;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.NotEmpty;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import org.springframework.data.annotation.Transient;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * Candidat
@@ -27,17 +30,9 @@ public class Candidat {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long candidat_id;
 
-    @Column(name = "email", nullable = false, unique = true)
-    @NotNull
-    private String email;
-
     @Column(name = "cin", nullable = false, unique = true)
     @NotNull
     private String cin;
-
-    @NotNull
-    @Transient
-    private String nationnalite;
 
     @NotNull
     private String nom;
@@ -46,9 +41,12 @@ public class Candidat {
     private String prenom;
 
     @NotNull
+    @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date date_naissance;
 
-    private String addresse;
+    private String adresse;
 
     private String tel;
 
@@ -70,15 +68,6 @@ public class Candidat {
     public void setId(long candidat_id) {
         this.candidat_id = candidat_id;
     }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public String getCin() {
         return cin;
     }
@@ -86,10 +75,6 @@ public class Candidat {
     public void setCin(String cin) {
         this.cin = cin;
     }
-
-    
- 
-
     public String getNom() {
         return nom;
     }
@@ -104,7 +89,7 @@ public class Candidat {
 
     public void setPrenom(String prenom) {
         this.prenom = prenom;
-    }
+    } 
 
     public Date getDate_naissance() {
         return date_naissance;
@@ -114,12 +99,12 @@ public class Candidat {
         this.date_naissance = date_naissance;
     }
 
-    public String getAddresse() {
-        return addresse;
+    public String getadresse() {
+        return adresse;
     }
 
-    public void setAddresse(String addresse) {
-        this.addresse = addresse;
+    public void setadresse(String adresse) {
+        this.adresse = adresse;
     }
 
     public String getTel() {
@@ -158,21 +143,24 @@ public class Candidat {
         return elections;
     }
 
-    public void setElections(Set<Election> elections) {
+    public void setElections(Set<Election> elections) { 
         this.elections = elections;
-    }
+    } 
 
-    public Candidat(long candidat_id, @NotNull String email, @NotNull String cin, @NotNull String nationnalite,
-            @NotNull String nom, @NotNull String prenom, @NotNull Date date_naissance, String addresse, String tel,
+    public Candidat(){
+        super();
+    }
+    public Candidat(long candidat_id, @NotNull String cin, 
+            @NotNull String nom, @NotNull String prenom, @NotNull Date date_naissance, String adresse, String tel,
             String sexe, String situation_familiale, String origine, Set<Election> elections) {
         this.candidat_id = candidat_id;
-        this.email = email;
+        
         this.cin = cin;
-        this.nationnalite = nationnalite;
+     
         this.nom = nom;
         this.prenom = prenom;
         this.date_naissance = date_naissance;
-        this.addresse = addresse;
+        this.adresse = adresse;
         this.tel = tel;
         this.sexe = sexe;
         this.situation_familiale = situation_familiale;

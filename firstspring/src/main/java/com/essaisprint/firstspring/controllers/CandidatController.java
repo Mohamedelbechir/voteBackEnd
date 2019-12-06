@@ -21,10 +21,9 @@ public class CandidatController {
     private CandidatDao candidatDao;
     
     @PostMapping(value="/candidats")
-    public ResponseEntity<Candidat> ajouterCandidat(@RequestBody Candidat Candidat) {
-
-        Candidat candidatAdded = candidatDao.save(Candidat);
-      
+    public ResponseEntity<Candidat> ajouterCandidat(@RequestBody Candidat candidat) {
+        System.out.println("njcdsnj");
+        Candidat candidatAdded = candidatDao.save(candidat);      
         
         if (candidatAdded == null)
              return ResponseEntity.noContent().build();
